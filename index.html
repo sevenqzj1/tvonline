@@ -605,7 +605,7 @@
 
       const updateWhatsAppLinks = () => {
         const message = selectedDevice
-          ? `Olá! Gostaria de conhecer as opções da TV ONLINE para ${selectedDevice}. Podem me passar informações sobre compatibilidade, programação e condições?`
+          ? `Olá! Gostaria de conhecer as opções para ${selectedDevice}. Podem me ajudar?`
           : defaultMessage;
         const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
         whatsappLinks.forEach(link => link.href = url);
