@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="Conheça a TV ONLINE, veja as opções de programação e fale com nosso atendimento pelo WhatsApp.">
+  <title>TV ONLINE — Entretenimento na sua tela</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090909;
+      --surface: #121212;
+      --surface-2: #191919;
+      --text: #f8f7f2;
+      --muted: #aaa9a2;
+      --yellow: #ffd21a;
+      --yellow-2: #f5a900;
+      --line: rgba(255,255,255,.1);
+      --glow: rgba(255,196,0,.18);
+      --radius: 22px;
+      --max: 1160px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: "DM Sans", sans-serif; line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+      background:
+        radial-gradient(ellipse at 84% 5%, rgba(255,190,0,.10), transparent 30%),
+        radial-gradient(ellipse at 0% 48%, rgba(255,210,26,.045), transparent 32%);
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(var(--max), calc(100% - 44px)); margin-inline: auto; }
+    .top-glow {
+      position: absolute; z-index: -1; width: 520px; height: 520px; border-radius: 50%;
+      filter: blur(110px); opacity: .16; background: #f8bb00; pointer-events: none;
+    }
+    .top-glow.one { top: 20px; right: -220px; }
+    .top-glow.two { top: 560px; left: -360px; opacity: .08; }
+    .header {
+      position: sticky; top: 0; z-index: 20; border-bottom: 1px solid rgba(255,255,255,.07);
+      background: rgba(9,9,9,.78); backdrop-filter: blur(18px);
+    }
+    .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-family: Manrope, sans-serif; font-weight: 900; letter-spacing: -.7px; }
+    .brand-mark {
+      width: 39px; height: 30px; border: 2px solid var(--yellow); border-radius: 9px;
+      display: grid; place-items: center; color: var(--yellow); position: relative;
+      box-shadow: 0 0 24px rgba(255,210,26,.13);
+    }
+    .brand-mark::after { content: ""; position: absolute; bottom: -7px; width: 14px; height: 2px; background: var(--yellow); border-radius: 2px; }
+    .brand-mark svg { width: 18px; height: 18px; }
+    .brand-name { font-size: 18px; }
+    .brand-name span { color: var(--yellow); }
+    .nav-links { display: flex; align-items: center; gap: 30px; color: #c4c2ba; font-size: 13px; font-weight: 600; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover { color: var(--yellow); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 49px; padding: 0 21px; border-radius: 999px; border: 1px solid transparent;
+      font-size: 13px; font-weight: 800; transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      cursor: pointer; white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      color: #17130a; background: linear-gradient(110deg, #ffe46a, #ffc400 55%, #f3a900);
+      box-shadow: 0 10px 32px rgba(255,190,0,.17);
+    }
+    .btn-primary:hover { box-shadow: 0 14px 38px rgba(255,190,0,.27); }
+    .btn-ghost { color: var(--text); border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.035); }
+    .btn-ghost:hover { border-color: rgba(255,210,26,.6); }
+    .menu-toggle { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); color: white; cursor: pointer; }
+    .hero { padding: 100px 0 94px; position: relative; }
+    .hero-grid { display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 55px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px; border: 1px solid rgba(255,210,26,.25);
+      border-radius: 99px; padding: 7px 12px; color: #f9d95e; background: rgba(255,210,26,.06);
+      font-size: 11px; font-weight: 800; letter-spacing: 1.3px; text-transform: uppercase;
+    }
+    .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 12px var(--yellow); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { font-family: Manrope, sans-serif; }
+    h1 { margin: 22px 0 20px; max-width: 670px; font-size: clamp(43px, 6vw, 76px); line-height: .99; letter-spacing: -4.5px; font-weight: 900; }
+    .gradient-text { background: linear-gradient(100deg, #fff2a8 0%, #ffd21a 43%, #e9a500 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-copy { max-width: 500px; margin-bottom: 29px; color: #b6b4ad; font-size: 16px; line-height: 1.8; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-note { color: #77766f; font-size: 11px; margin: 20px 0 0; }
+    .hero-art { min-height: 450px; position: relative; display: grid; place-items: center; }
+    .art-orbit {
+      position: absolute; width: 410px; height: 410px; border-radius: 50%;
+      border: 1px solid rgba(255,210,26,.12); box-shadow: 0 0 90px rgba(255,190,0,.07), inset 0 0 80px rgba(255,190,0,.035);
+    }
+    .art-orbit::before, .art-orbit::after { content: ""; position: absolute; border: 1px solid rgba(255,210,26,.09); border-radius: 50%; inset: 34px; }
+    .art-orbit::after { inset: 74px; }
+    .screen-card {
+      width: min(100%, 440px); position: relative; padding: 14px; border: 1px solid rgba(255,255,255,.15);
+      border-radius: 26px; background: linear-gradient(145deg, rgba(39,37,27,.94), rgba(15,15,15,.97));
+      box-shadow: 0 35px 90px rgba(0,0,0,.6), 0 0 60px rgba(255,194,0,.11);
+      transform: rotate(-2deg);
+    }
+    .screen-top { display: flex; justify-content: space-between; align-items: center; padding: 2px 4px 13px; }
+    .screen-label { font: 800 10px Manrope, sans-serif; letter-spacing: 1.8px; color: #d5d1c2; }
+    .live-pill { font-size: 9px; letter-spacing: 1px; font-weight: 800; color: #17130a; background: var(--yellow); border-radius: 99px; padding: 5px 8px; }
+    .screen-feature {
+      min-height: 220px; border-radius: 17px; overflow: hidden; position: relative; padding: 20px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      background:
+        linear-gradient(0deg, rgba(0,0,0,.92), rgba(0,0,0,.05) 80%),
+        radial-gradient(ellipse at 70% 20%, rgba(255,216,76,.9), transparent 18%),
+        linear-gradient(130deg, #4d3400, #a87500 43%, #17130a 85%);
+    }
+    .screen-feature::before {
+      content: ""; position: absolute; width: 190px; height: 190px; right: 34px; top: 18px;
+      border: 1px solid rgba(255,240,170,.55); border-radius: 50%; box-shadow: 0 0 55px rgba(255,216,76,.3), inset 0 0 45px rgba(255,216,76,.16);
+    }
+    .screen-feature::after {
+      content: "▶"; position: absolute; right: 91px; top: 78px; width: 70px; height: 70px; border-radius: 50%;
+      display: grid; place-items: center; padding-left: 4px; color: #201900; background: linear-gradient(135deg,#fff2a8,#ffc400);
+      box-shadow: 0 0 40px rgba(255,210,26,.38); font-size: 22px;
+    }
+    .screen-kicker { position: relative; color: #ffdf59; font-size: 9px; font-weight: 800; letter-spacing: 2px; }
+    .screen-feature strong { position: relative; font: 900 28px/1.05 Manrope, sans-serif; letter-spacing: -1px; margin-top: 7px; }
+    .screen-feature small { position: relative; color: #c9c5b8; font-size: 10px; margin-top: 6px; }
+    .screen-bottom { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-top: 10px; }
+    .mini-tile { height: 76px; border-radius: 12px; display: flex; align-items: flex-end; padding: 9px; overflow: hidden; position: relative; background: #242219; }
+    .mini-tile:nth-child(1) { background: linear-gradient(145deg,#57420b,#15130c); }
+    .mini-tile:nth-child(2) { background: linear-gradient(145deg,#3b3b36,#141414); }
+    .mini-tile:nth-child(3) { background: linear-gradient(145deg,#57401b,#18130a); }
+    .mini-tile span { position: relative; z-index: 1; font-size: 9px; font-weight: 800; color: #f5edcf; }
+    .mini-tile::before { content: ""; position: absolute; width: 75px; height: 75px; border: 1px solid rgba(255,255,255,.15); border-radius: 50%; right: -21px; top: -30px; }
+    .floating-chip {
+      position: absolute; display: flex; align-items: center; gap: 9px; padding: 12px 15px; border-radius: 14px;
+      color: #eae5d3; border: 1px solid rgba(255,255,255,.14); background: rgba(24,23,19,.88);
+      box-shadow: 0 15px 35px rgba(0,0,0,.4); backdrop-filter: blur(12px); font-size: 10px; font-weight: 700;
+    }
+    .floating-chip b { color: var(--yellow); font-size: 16px; }
+    .chip-one { top: 65px; right: -12px; }
+    .chip-two { bottom: 63px; left: -10px; }
+    .section { padding: 92px 0; }
+    .section-head { max-width: 650px; margin: 0 auto 44px; text-align: center; }
+    .section-kicker { color: var(--yellow); text-transform: uppercase; letter-spacing: 2px; font-size: 10px; font-weight: 900; }
+    h2 { margin: 12px 0 14px; font-size: clamp(30px, 4vw, 46px); line-height: 1.12; letter-spacing: -2px; }
+    .section-head p { color: var(--muted); font-size: 14px; margin-bottom: 0; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .feature-card {
+      min-height: 210px; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.012)); transition: transform .25s ease, border-color .25s ease;
+    }
+    .feature-card:hover { transform: translateY(-5px); border-color: rgba(255,210,26,.32); }
+    .feature-icon { width: 45px; height: 45px; display: grid; place-items: center; margin-bottom: 20px; border-radius: 14px; background: rgba(255,210,26,.1); color: var(--yellow); }
+    .feature-icon svg { width: 21px; height: 21px; }
+    .feature-card h3 { font-size: 17px; margin-bottom: 8px; letter-spacing: -.4px; }
+    .feature-card p { color: var(--muted); font-size: 12px; line-height: 1.75; margin: 0; }
+    .catalog-section { background: linear-gradient(180deg, transparent, rgba(255,210,26,.035), transparent); }
+    .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }
+    .category {
+      min-height: 155px; position: relative; overflow: hidden; border-radius: 19px; padding: 20px;
+      display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid rgba(255,255,255,.1);
+      background: linear-gradient(145deg, #292316, #11100d 75%);
+    }
+    .category:nth-child(2) { background: linear-gradient(145deg, #343026, #111 75%); }
+    .category:nth-child(3) { background: linear-gradient(145deg, #46340f, #111 75%); }
+    .category:nth-child(4) { background: linear-gradient(145deg, #292929, #111 75%); }
+    .category::before { content: ""; position: absolute; width: 145px; height: 145px; right: -30px; top: -48px; border: 1px solid rgba(255,210,26,.25); border-radius: 50%; box-shadow: 0 0 35px rgba(255,190,0,.08); }
+    .category-symbol { position: absolute; top: 20px; left: 20px; color: rgba(255,210,26,.85); font: 800 28px Manrope, sans-serif; }
+    .category strong { position: relative; font: 800 16px Manrope, sans-serif; }
+    .category span { position: relative; color: #aaa69a; font-size: 10px; margin-top: 3px; }
+    .devices-wrap { display: grid; grid-template-columns: .85fr 1.15fr; gap: 60px; align-items: center; }
+    .devices-copy h2 { max-width: 430px; }
+    .devices-copy p { color: var(--muted); font-size: 14px; max-width: 440px; }
+    .device-list { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 25px; }
+    .device-tag { padding: 9px 13px; border: 1px solid var(--line); background: rgba(255,255,255,.035); color: #e0ddd3; border-radius: 99px; font-size: 11px; font-weight: 700; }
+    .device-visual {
+      min-height: 300px; border: 1px solid rgba(255,255,255,.1); border-radius: 28px; position: relative; overflow: hidden;
+      background: radial-gradient(ellipse at 50% 40%, rgba(255,190,0,.17), transparent 58%), #111;
+      display: grid; place-items: center;
+    }
+    .tv-frame { width: 70%; max-width: 420px; aspect-ratio: 16/10; border: 7px solid #37352e; border-radius: 17px; padding: 7px; background: #050505; box-shadow: 0 25px 55px #000; position: relative; }
+    .tv-screen { width: 100%; height: 100%; border-radius: 7px; display: grid; place-items: center; background: linear-gradient(130deg,#3b2a05,#d39b00 48%,#1b170b); }
+    .tv-screen span { font: 900 clamp(20px,3vw,37px) Manrope,sans-serif; color: #fff2bd; letter-spacing: -2px; text-shadow: 0 4px 25px #5a3d00; }
+    .tv-stand { position: absolute; width: 80px; height: 20px; bottom: -24px; left: calc(50% - 40px); border-bottom: 5px solid #37352e; border-left: 8px solid transparent; border-right: 8px solid transparent; }
+    .device-orb { position: absolute; width: 280px; height: 280px; border: 1px solid rgba(255,210,26,.15); border-radius: 50%; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: step; }
+    .step { border-top: 1px solid rgba(255,210,26,.35); padding: 23px 20px 0 0; counter-increment: step; }
+    .step-number { width: 35px; height: 35px; display: grid; place-items: center; border-radius: 11px; color: #17130a; background: linear-gradient(135deg,#ffe66d,#f5ae00); font: 900 14px Manrope,sans-serif; margin-bottom: 18px; }
+    .step h3 { font-size: 17px; margin-bottom: 7px; }
+    .step p { color: var(--muted); font-size: 12px; margin: 0; }
+    .faq-layout { display: grid; grid-template-columns: .75fr 1.25fr; gap: 70px; align-items: start; }
+    .faq-intro p { color: var(--muted); font-size: 13px; }
+    .faq-list { display: grid; gap: 10px; }
+    details { border: 1px solid var(--line); background: rgba(255,255,255,.025); border-radius: 15px; padding: 0 18px; }
+    summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 20px; align-items: center; padding: 18px 0; font-size: 13px; font-weight: 700; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--yellow); font-size: 21px; font-weight: 400; }
+    details[open] summary::after { content: "−"; }
+    details p { color: var(--muted); font-size: 12px; margin: -2px 0 18px; line-height: 1.8; }
+    .cta-panel {
+      padding: 55px; border-radius: 28px; overflow: hidden; position: relative;
+      background: linear-gradient(115deg, #ffe36a 0%, #ffc400 47%, #b97800 100%); color: #17130a;
+      box-shadow: 0 22px 65px rgba(235,166,0,.12);
+    }
+    .cta-panel::after { content: ""; position: absolute; width: 340px; height: 340px; border: 1px solid rgba(40,29,0,.2); border-radius: 50%; right: -70px; top: -170px; box-shadow: 0 0 0 35px rgba(40,29,0,.04), 0 0 0 75px rgba(40,29,0,.035); }
+    .cta-content { max-width: 610px; position: relative; z-index: 1; }
+    .cta-panel h2 { font-size: clamp(30px,4vw,45px); margin: 0 0 12px; }
+    .cta-panel p { max-width: 480px; font-size: 13px; color: rgba(23,19,10,.76); margin-bottom: 23px; }
+    .btn-dark { color: #fff; background: #111; box-shadow: 0 8px 25px rgba(0,0,0,.2); }
+    .btn-dark:hover { background: #292929; }
+    footer { padding: 35px 0 28px; }
+    .footer-top { display: flex; justify-content: space-between; gap: 25px; align-items: center; padding-bottom: 25px; border-bottom: 1px solid var(--line); }
+    .footer-copy { max-width: 360px; color: #838178; font-size: 11px; margin: 13px 0 0; }
+    .footer-links { display: flex; gap: 19px; flex-wrap: wrap; color: #aaa79d; font-size: 11px; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 15px; padding-top: 19px; color: #66645d; font-size: 10px; }
+    .whatsapp-float {
+      position: fixed; right: 23px; bottom: 22px; z-index: 15; width: 58px; height: 58px; border-radius: 50%;
+      display: grid; place-items: center; color: #17130a; background: linear-gradient(135deg,#ffe36a,#ffc400);
+      box-shadow: 0 10px 32px rgba(255,190,0,.25); transition: transform .2s ease;
+    }
+    .whatsapp-float:hover { transform: translateY(-4px) scale(1.04); }
+    .whatsapp-float svg { width: 25px; height: 25px; }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 900px) {
+      .hero-grid { gap: 24px; grid-template-columns: 1fr  .9fr; }
+      h1 { font-size: clamp(42px,6vw,62px); letter-spacing: -3px; }
+      .art-orbit { width: 330px; height: 330px; }
+      .screen-card { transform: none; }
+      .chip-one { right: -4px; }
+      .chip-two { left: -4px; }
+      .devices-wrap { gap: 30px; }
+      .faq-layout { gap: 35px; }
+    }
+    @media (max-width: 700px) {
+      .container { width: min(100% - 34px, var(--max)); }
+      .nav { min-height: 69px; }
+      .menu-toggle { display: grid; place-items: center; }
+      .nav > .btn { display: none; }
+      .nav-links {
+        display: none; position: absolute; top: 69px; left: 0; right: 0; padding: 18px 22px 22px;
+        flex-direction: column; align-items: stretch; gap: 0; background: rgba(9,9,9,.98); border-bottom: 1px solid var(--line);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+      .hero { padding: 69px 0 62px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 35px; }
+      h1 { font-size: clamp(43px,12vw,62px); letter-spacing: -3.2px; }
+      .hero-copy { font-size: 14px; }
+      .hero-art { min-height: 350px; }
+      .art-orbit { width: 310px; height: 310px; }
+      .screen-card { max-width: 390px; }
+      .screen-feature { min-height: 185px; }
+      .screen-feature::before { width: 150px; height: 150px; right: 20px; }
+      .screen-feature::after { right: 64px; top: 57px; }
+      .chip-one { top: 27px; right: -3px; }
+      .chip-two { bottom: 23px; left: -2px; }
+      .section { padding: 69px 0; }
+      .feature-grid { grid-template-columns: 1fr 1fr; }
+      .feature-card { min-height: 190px; padding: 20px; }
+      .category-grid { grid-template-columns: 1fr 1fr; }
+      .category { min-height: 135px; }
+      .devices-wrap { grid-template-columns: 1fr; gap: 30px; }
+      .device-visual { min-height: 250px; }
+      .steps { grid-template-columns: 1fr; gap: 28px; }
+      .step { padding-top: 18px; }
+      .faq-layout { grid-template-columns: 1fr; gap: 22px; }
+      .cta-panel { padding: 35px 25px; }
+      .footer-top, .footer-bottom { align-items: flex-start; flex-direction: column; }
+      .whatsapp-float { right: 15px; bottom: 15px; width: 53px; height: 53px; }
+    }
+    @media (max-width: 410px) {
+      .feature-grid { grid-template-columns: 1fr; }
+      .hero-actions .btn { width: 100%; }
+      .screen-feature strong { font-size: 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-glow one"></div><div class="top-glow two"></div>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand" href="#inicio" aria-label="TV ONLINE - início">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 8.5h14v10H5zM9 5l3 3.5L15 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="brand-name">TV <span>ONLINE</span></span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
+        <a href="#vantagens">Vantagens</a><a href="#programacao">Programação</a><a href="#dispositivos">Compatibilidade</a><a href="#duvidas">Dúvidas</a>
+      </nav>
+      <a class="btn btn-primary whatsapp-link" href="https://wa.me/553499307264" target="_blank" rel="noopener noreferrer">Falar no WhatsApp <span aria-hidden="true">↗</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <span class="eyebrow"><i class="eyebrow-dot"></i> TV ONLINE</span>
+          <h1>O seu entretenimento.<br><span class="gradient-text">Do seu jeito.</span></h1>
+          <p class="hero-copy">Descubra as opções de programação disponíveis e encontre uma experiência que combina com você. Nossa equipe está pronta para orientar e tirar suas dúvidas.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary whatsapp-link" href="https://wa.me/553499307264" target="_blank" rel="noopener noreferrer">Conhecer opções <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-ghost" href="#como-funciona">Como funciona</a>
+          </div>
+          <p class="hero-note">Atendimento direto e personalizado pelo WhatsApp.</p>
+        </div>
+        <div class="hero-art reveal" aria-label="Ilustração de uma tela de entretenimento">
+          <div class="art-orbit"></div>
+          <div class="screen-card">
+            <div class="screen-top"><span class="screen-label">SUA EXPERIÊNCIA DE ENTRETENIMENTO</span><span class="live-pill">TV ONLINE</span></div>
+            <div class="screen-feature"><span class="screen-kicker">DESCUBRA</span><strong>Novas formas<br>de assistir.</strong><small>Consulte as opções disponíveis</small></div>
+            <div class="screen-bottom"><div class="mini-tile"><span>Programação</span></div><div class="mini-tile"><span>Na sua tela</span></div><div class="mini-tile"><span>Atendimento</span></div></div>
+          </div>
+          <div class="floating-chip chip-one"><b>✦</b><span>Atendimento<br>personalizado</span></div>
+          <div class="floating-chip chip-two"><b>↗</b><span>Fale com a<br>nossa equipe</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="vantagens">
+      <div class="container">
+        <div class="section-head reveal"><span class="section-kicker">Mais praticidade</span><h2>Uma experiência simples<br>do começo ao fim</h2><p>Informações claras, orientação na escolha e suporte para você conhecer as opções disponíveis.</p></div>
+        <div class="feature-grid">
+          <article class="feature-card reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6.5h16v11H4zM9 21h6M12 17.5V21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Na tela que preferir</h3><p>Consulte a compatibilidade e as orientações para utilizar o serviço nos seus dispositivos.</p></article>
+          <article class="feature-card reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5h14v14H5zM8 9h8M8 12h5M8 15h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div><h3>Opções para conhecer</h3><p>Veja os detalhes da programação e escolha entre as ofertas efetivamente disponíveis.</p></article>
+          <article class="feature-card reveal"><div class="feature-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M20 11.5a7.5 7.5 0 0 1-11.3 6.4L4 19l1.1-4.2A7.5 7.5 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 9.5c.5 2 1.5 3 3.5 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div><h3>Atendimento próximo</h3><p>Converse diretamente com nossa equipe para tirar dúvidas antes de contratar.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section catalog-section" id="programacao">
+      <div class="container">
+        <div class="section-head reveal"><span class="section-kicker">Programação</span><h2>Encontre o que combina<br>com você</h2><p>Consulte nosso atendimento para verificar categorias, títulos, disponibilidade e condições de cada opção.</p></div>
+        <div class="category-grid">
+          <article class="category reveal"><span class="category-symbol">01</span><strong>Canais ao vivo</strong><span>Consulte a programação disponível</span></article>
+          <article class="category reveal"><span class="category-symbol">02</span><strong>Filmes</strong><span>Consulte o catálogo autorizado</span></article>
+          <article class="category reveal"><span class="category-symbol">03</span><strong>Séries</strong><span>Consulte títulos e disponibilidade</span></article>
+          <article class="category reveal"><span class="category-symbol">04</span><strong>Esportes</strong><span>Consulte canais e eventos disponíveis</span></article>
+        </div>
+        <p style="max-width:760px;margin:18px auto 0;text-align:center;color:#77756d;font-size:10px">A disponibilidade de canais e conteúdos depende dos direitos de distribuição, do catálogo contratado e das condições de cada oferta.</p>
+      </div>
+    </section>
+
+    <section class="section" id="dispositivos">
+      <div class="container devices-wrap">
+        <div class="devices-copy reveal">
+          <span class="section-kicker">Mais possibilidades</span>
+          <h2>Consulte como assistir nos seus dispositivos</h2>
+          <p>Smart TVs, celulares, tablets, computadores e outros aparelhos podem ter requisitos diferentes. Fale com a equipe para confirmar a compatibilidade do seu equipamento antes de contratar.</p>
+          <div class="device-list"><span class="device-tag">Smart TV</span><span class="device-tag">Celular</span><span class="device-tag">Tablet</span><span class="device-tag">Computador</span><span class="device-tag">TV Box compatível</span></div>
+          <a class="btn btn-primary whatsapp-link" style="margin-top:25px" href="https://wa.me/553499307264" target="_blank" rel="noopener noreferrer">Consultar compatibilidade ↗</a>
+        </div>
+        <div class="device-visual reveal" aria-hidden="true"><div class="device-orb"></div><div class="tv-frame"><div class="tv-screen"><span>TV ONLINE</span></div><div class="tv-stand"></div></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="como-funciona">
+      <div class="container">
+        <div class="section-head reveal"><span class="section-kicker">Sem complicação</span><h2>Como funciona?</h2><p>Um caminho direto para conhecer o serviço e receber as informações necessárias.</p></div>
+        <div class="steps">
+          <article class="step reveal"><div class="step-number">1</div><h3>Entre em contato</h3><p>Chame nossa equipe pelo WhatsApp e diga o que você procura.</p></article>
+          <article class="step reveal"><div class="step-number">2</div><h3>Confira as opções</h3><p>Receba informações sobre programação, compatibilidade, valores e condições.</p></article>
+          <article class="step reveal"><div class="step-number">3</div><h3>Tire suas dúvidas</h3><p>Com tudo explicado, você pode avaliar a oferta e decidir com tranquilidade.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="duvidas">
+      <div class="container faq-layout">
+        <div class="faq-intro reveal"><span class="section-kicker">Perguntas frequentes</span><h2>Ficou com alguma dúvida?</h2><p>Confira algumas orientações ou fale diretamente com nossa equipe.</p><a class="btn btn-ghost whatsapp-link" href="https://wa.me/553499307264" target="_blank" rel="noopener noreferrer">Perguntar pelo WhatsApp ↗</a></div>
+        <div class="faq-list reveal">
+          <details><summary>Quais canais e conteúdos estão disponíveis?</summary><p>O catálogo pode variar conforme a oferta. Entre em contato para consultar a lista atualizada e confirmar quais conteúdos estão autorizados e disponíveis.</p></details>
+          <details><summary>Quais dispositivos são compatíveis?</summary><p>A compatibilidade depende do aparelho, do aplicativo utilizado e dos requisitos do serviço. Informe o modelo do seu dispositivo para receber orientação.</p></details>
+          <details><summary>Como consulto os preços?</summary><p>Os valores e condições são informados diretamente pelo atendimento. Solicite a relação atualizada de planos antes de contratar.</p></details>
+          <details><summary>Como funciona o suporte?</summary><p>Você pode falar com nossa equipe pelo WhatsApp para receber orientações e esclarecer dúvidas sobre a oferta contratada.</p></details>
+          <details><summary>Como sei se a oferta é adequada para mim?</summary><p>Antes de contratar, confira o catálogo, os direitos de distribuição, os dispositivos compatíveis, o preço, a duração e as condições de cancelamento.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:30px;padding-bottom:85px">
+      <div class="container">
+        <div class="cta-panel reveal"><div class="cta-content"><span class="section-kicker" style="color:#4b3500">TV ONLINE</span><h2>Vamos encontrar a melhor opção para você?</h2><p>Fale com nossa equipe, conheça as ofertas disponíveis e tire suas dúvidas antes de contratar.</p><a class="btn btn-dark whatsapp-link" href="https://wa.me/553499307264" target="_blank" rel="noopener noreferrer">Conversar pelo WhatsApp <span aria-hidden="true">↗</span></a></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div><a class="brand" href="#inicio"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 8.5h14v10H5zM9 5l3 3.5L15 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="brand-name">TV <span>ONLINE</span></span></a><p class="footer-copy">Informações sobre opções de programação, compatibilidade e atendimento.</p></div>
+        <div class="footer-links"><a href="#vantagens">Vantagens</a><a href="#programacao">Programação</a><a href="#duvidas">Dúvidas</a><a class="whatsapp-link" href="https://wa.me/553499307264" target="_blank" rel="noopener noreferrer">WhatsApp</a></div>
+      </div>
+      <div class="footer-bottom"><span>© <span id="year"></span> TV ONLINE. Todos os direitos reservados.</span><span>Consulte os direitos e as condições de cada conteúdo e oferta.</span></div>
+    </div>
+  </footer>
+
+  <a class="whatsapp-float whatsapp-link" href="https://wa.me/553499307264" target="_blank" rel="noopener noreferrer" aria-label="Falar com a TV ONLINE pelo WhatsApp">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11.6a8.1 8.1 0 0 1-12.2 7l-4.3 1.1 1.2-4.2A8.1 8.1 0 1 1 20 11.6Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.5c.4 2.2 1.8 3.6 4.1 4.8l1.1-1.1 2 .9c.2.1.3.3.2.5-.3 1.1-1.1 1.6-2.2 1.5-3.4-.4-6.2-3.1-6.6-6.2-.1-.8.4-1.6 1.2-1.8.2-.1.4 0 .5.2l.8 1.5-.9 1.1Z" fill="currentColor"/></svg>
+  </a>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Abrir menu');
+    }));
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(element => revealObserver.observe(element));
+  </script>
+</body>
+</html>
