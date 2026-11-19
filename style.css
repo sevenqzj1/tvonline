@@ -482,3 +482,79 @@ html.reveal-ready [data-reveal].is-visible { animation: reveal-in .72s var(--eas
 @media (forced-colors: active) {
   .device-chip[aria-pressed="true"] { outline: 2px solid Highlight; }
 }
+
+/* ==========================================================
+   AJUSTE MOBILE — colar no FINAL do style.css
+   ========================================================== */
+
+/* Nenhum filho de grid pode estourar a largura da tela */
+.hero-copy, .hero-stage, .faq-copy, .faq-list,
+.program-list, .step, .final-cta { min-width: 0; }
+.brand-name { white-space: nowrap; }
+h1, h2, h3 { overflow-wrap: break-word; }
+
+@media (max-width: 860px) {
+  :root {
+    --section-y: clamp(48px, 11vw, 72px);
+    --fs-h1: clamp(2.6rem, 1.1rem + 8vw, 4.4rem);
+    --fs-h2: clamp(1.9rem, 1rem + 4.6vw, 2.8rem);
+    --fs-lead: 1.0625rem;
+  }
+
+  /* Hero: título e botões já aparecem na primeira tela */
+  .hero { padding: 28px 0 56px; }
+  .hero-grid { gap: 36px; }
+  .hero h1 { line-height: 1; margin-bottom: .35em; }
+  .hero-note { font-size: .875rem; }
+  .tv-shell { width: 100%; max-width: 480px; margin-inline: auto; }
+
+  /* Menu: links grandes, fáceis de tocar */
+  .desktop-nav a { min-height: 58px; font-size: 1.125rem; }
+
+  /* Barra do WhatsApp: só o botão, sem a "pílula" em volta */
+  .mobile-cta {
+    padding: 0; border: 0; background: transparent; box-shadow: none;
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+  }
+  .mobile-cta .btn {
+    max-width: none; min-height: 54px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.4), var(--shadow-yellow);
+  }
+
+  /* Programação mais compacta */
+  .program-row { min-height: 0; padding-block: 16px; }
+
+  /* Passos: número à esquerda, texto à direita */
+  .steps { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .step {
+    display: grid; grid-template-columns: 44px minmax(0, 1fr);
+    column-gap: 16px; padding: 20px 0;
+  }
+  .step:last-child { border-bottom: 1px solid var(--line-strong); }
+  .step-index { grid-row: span 2; margin: 0; }
+  .step h3 { margin-bottom: 4px; }
+
+  .faq-list summary { min-height: 64px; }
+}
+
+@media (max-width: 560px) {
+  /* Aparelhos: 2 colunas, ícone à esquerda; o último ocupa a linha toda */
+  .device-picker { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .device-chip {
+    justify-content: flex-start; min-height: 54px;
+    padding-inline: 14px; border-radius: 16px;
+  }
+  .device-chip:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .device-response { font-size: .9375rem; }
+
+  .section-intro { margin-bottom: 26px; }
+  .tv-screen { min-height: 205px; }
+  .final-cta { padding: 30px 22px; }
+}
+
+/* Celular deitado: cabeçalho e hero mais baixos */
+@media (max-height: 500px) and (orientation: landscape) {
+  :root { --header-h: 58px; }
+  .hero { padding: 20px 0 40px; }
+}
+
