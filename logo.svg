@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="64" viewBox="0 0 256 64" role="img" aria-labelledby="title desc">
+  <title id="title">TV ONLINE</title>
+  <desc id="desc">Ícone amarelo de televisão com símbolo de reprodução e o nome TV ONLINE.</desc>
+  <defs>
+    <symbol id="tv-mark" viewBox="0 0 64 64">
+      <rect width="64" height="64" rx="16" fill="#ffd21a"/>
+      <rect x="10.5" y="15" width="43" height="32" rx="6.5" fill="none" stroke="#17130a" stroke-width="4"/>
+      <path d="M27 23v16l13.5-8z" fill="#17130a"/>
+      <path d="M26 53h12" fill="none" stroke="#17130a" stroke-width="4" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+  <use href="#tv-mark" width="64" height="64"/>
+  <text x="78" y="41" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800" letter-spacing="-1.2" fill="#f6f4ed">TV <tspan fill="#ffd21a">ONLINE</tspan></text>
+</svg>
